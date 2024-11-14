@@ -122,5 +122,47 @@ double binaryExpressionTree::evaluateExpressionTree() {
 
 double binaryExpressionTree::evaluateExpressionTree(nodeType<string>* node) {
 
-    return evaluateExpressionTree(node);
+   /* if () {
+
+        return 
+    }
+
+
+    return evaluateExpressionTree(node);*/
+
+    // If the tree has only one node (leaf node)
+    if (node->lLink == nullptr && node->rLink == nullptr) {
+        // Convert the value in the info field to double and return it
+        return stod(node->info);
+    }
+
+    //If the tree has more than one node and the root contains an operator
+    // Recursively evaluate the left and right subtrees
+    double x = evaluateExpressionTree(node->lLink);  // Left operand
+    double y = evaluateExpressionTree(node->rLink);  // Right operand
+
+    // Apply the operator at the current node (p)
+    if (node->info == "+") {
+        return x + y;
+    }
+    else if (node->info == "-") {
+        return x - y;
+    }
+    else if (node->info == "*") {
+        return x * y;
+    }
+    else if (node->info == "/") {
+        if (y == 0) {
+            cerr << "Error: Division by zero" << endl;
+            return 0;
+        }
+        return x / y;
+    }
+    else {
+        cerr << "Error: Unsupported operator " << node->info << endl;
+        return 0;
+    }
 }
+
+
+
