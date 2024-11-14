@@ -41,9 +41,9 @@ void binaryExpressionTree::buildExpressionTree(string postfixExpression) {
         //If the character is a digit, accumulate it into currentToken
         if (isdigit(currentChar)) {
             currentToken += currentChar;
-        //}
-        ////If the character is a space and currentToken is not empty
-        //else if (currentChar == ' ' && !currentToken.empty()) {
+        }
+        //If the character is a space and currentToken is not empty
+        else if (currentChar == ' ' && !currentToken.empty()) {
             /*Create a node
                 Convert the token from a character array to a string
                 Store the string in the info field
@@ -66,20 +66,27 @@ void binaryExpressionTree::buildExpressionTree(string postfixExpression) {
             nodeType<string>* newNode = new nodeType<string>;
 
             // Store the operator 
-            newNode->info = currentToken;
+            newNode->info = string(1, currentChar);  // Store the operator (as a string)
+
+            newNode->lLink = nullptr;
+            newNode->rLink = nullptr;
 
             if (!treeStack.empty()) {
+                // Set the right child
                 newNode->rLink = treeStack.top();
                 treeStack.pop();
                 if (!treeStack.empty()) {
+                    // Set the left child
                     newNode->lLink = treeStack.top();
                     treeStack.pop();
                     treeStack.push(newNode);  // Push the node onto the stack
                 }
                 else {
+                    //missing left operand for operator
                     cerr << "Error- Stack is empty" << endl;
                 }
             }else{
+                //missing right operand for operator
                 cerr << "Error- Stack is empty" << endl;
             }
         
@@ -89,7 +96,28 @@ void binaryExpressionTree::buildExpressionTree(string postfixExpression) {
         }
     }
 
+    // Check if the stack is still not empty after popping the root
+    if (!treeStack.empty()) {
+        root = treeStack.top(); // The final node is the root of the expression tree
+        treeStack.pop();
+
+        if (!treeStack.empty()){
+            cout << "Error: Stack should be empty after processing the expression. Invalid expression." << endl;
+            root = nullptr;  // Set root back to null if there's an error
+        }
+        else {
+            cout << "Expression tree built successfully!" << endl;
+        }
+
+    }
+    else {
+        cout << "Error: Stack is empty, there was an issue building the expression tree." << endl;
+    }
+
+    // Clean up the allocated memory for the character array
+    delete[] expression;
 }
+
 
 double binaryExpressionTree::evaluateExpressionTree() {
     return evaluateExpressionTree(this->root);   //?????
