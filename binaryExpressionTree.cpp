@@ -44,10 +44,6 @@ void binaryExpressionTree::buildExpressionTree(string postfixExpression) {
         }
         //If the character is a space and currentToken is not empty
         else if (currentChar == ' ' && !currentToken.empty()) {
-            /*Create a node
-                Convert the token from a character array to a string
-                Store the string in the info field
-                Push the new node onto the stack*/
 
             // Create a node for the number
             nodeType<string>* newNode = new nodeType<string>;
