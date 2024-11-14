@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="binaryExpressionTree.cpp" />
     <ClCompile Include="BinaryExpressionTreeProject.cpp" />
   </ItemGroup>
   <ItemGroup>
