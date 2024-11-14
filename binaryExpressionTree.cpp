@@ -1,4 +1,6 @@
 #include "binaryExpressionTree.h"
+#include <stack>
+#include <cstring>
 
 // Implement the search function
 bool binaryExpressionTree::search(const string& searchItem) const
@@ -20,16 +22,19 @@ void binaryExpressionTree::deleteNode(const string& deleteItem)
 }
 
 
-void binaryExpressionTree::buildExpressionTree(string value) {
+void binaryExpressionTree::buildExpressionTree(string postfixExpression) {
+
+
+
 
 }
 
 double binaryExpressionTree::evaluateExpressionTree() {
-
+    return evaluateExpressionTree(this->root);   //?????
 }
 
 
-double binaryExpressionTree::evaluateExpressionTree(nodeType<string>*) {
+double binaryExpressionTree::evaluateExpressionTree(nodeType<string>* node) {
 
-
+    return evaluateExpressionTree(node);
 }

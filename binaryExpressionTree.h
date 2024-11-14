@@ -15,7 +15,7 @@ public:
 
 	void deleteNode(const string& deleteItem) override;
 
-	void buildExpressionTree(string value);
+	void buildExpressionTree(string postfixExpression);
 
 	double evaluateExpressionTree();
 
