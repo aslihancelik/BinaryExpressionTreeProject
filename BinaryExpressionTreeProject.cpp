@@ -1,20 +1,74 @@
 // BinaryExpressionTreeProject.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
+// This program reads postfix expressions from an input file, builds a binary expression tree for each, 
+// evaluates the result, and writes the results to an output file.
+
 
 #include <iostream>
+#include <fstream>
+#include <string>
+#include "binaryExpressionTree.h" 
 
-int main()
-{
-    std::cout << "Hello World!\n";
+using namespace std;
+
+int main() {
+    // Input and output file names
+    const string inputFileName = "RpnData.txt";
+    const string outputFileName = "expressionResults.txt";
+
+    // Open the input file
+    ifstream inputFile(inputFileName);
+    if (!inputFile) {
+        cerr << "Error: Unable to open input file: " << inputFileName << endl;
+        return 1;
+    }
+
+    // Open the output file
+    ofstream outputFile(outputFileName);
+    if (!outputFile) {
+        cerr << "Error: Unable to open output file: " << outputFileName << endl;
+        return 1;
+    }
+
+    // Create an instance of binaryExpressionTree
+    binaryExpressionTree expressionTree;
+
+    string postfixExpression;
+    while (getline(inputFile, postfixExpression)) {
+        // Remove leading/trailing spaces from the input line
+        postfixExpression.erase(0, postfixExpression.find_first_not_of(" "));
+        postfixExpression.erase(postfixExpression.find_last_not_of(" ") + 1);
+
+        // Skip empty lines
+        if (postfixExpression.empty()) continue;
+
+        // Destroy any existing tree before building a new one
+        expressionTree.destroyTree();
+
+        try {
+            // Build the expression tree
+            cout << "Processing expression: " << postfixExpression << endl;
+            expressionTree.buildExpressionTree(postfixExpression);
+
+            // Evaluate the expression tree
+            double result = expressionTree.evaluateExpressionTree();
+            cout << "Result: " << result << endl;
+
+            // Write the result to the output file
+            outputFile << postfixExpression << " = " << result << endl;
+        }
+        catch (const exception& e) {
+            cerr << "Error while processing expression: " << postfixExpression << endl;
+            cerr << e.what() << endl;
+            outputFile << postfixExpression << " = ERROR" << endl;
+        }
+    }
+
+    // Close the files
+    inputFile.close();
+    outputFile.close();
+
+    cout << "Results written to " << outputFileName << endl;
+
+    return 0;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file

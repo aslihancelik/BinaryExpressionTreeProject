@@ -1,27 +1,35 @@
+// binaryExpressionTree.cpp
+// This file implements the binaryExpressionTree class methods to build and evaluate expression trees
+// based on postfix expressions. It includes:
+// - A method to construct an expression tree by parsing a postfix string.
+// - Recursive evaluation of the tree to compute the result.
+// - Error handling for invalid expressions, and division by zero etc.
+
+
 #include "binaryExpressionTree.h"
 #include <stack>
-//#include <cstring>
-#include <cctype>
+#include <cstring>
+//#include <cctype>
 
 
 void binaryExpressionTree::buildExpressionTree(string postfixExpression) {
 
-    // Step 1: Initialize a stack of pointers to binary tree nodes
+    // Initialize a stack of pointers to binary tree nodes
     stack<nodeType<string>*> treeStack;
 
-    // Step 2: Convert the string to a character array
-    //char* expression = new char[postfixExpression.length() + 1];
+    // Convert the string to a character array
+    char* expression = new char[postfixExpression.length() + 1];
     //strcpy(expression, postfixExpression.c_str());
+    strcpy_s(expression, postfixExpression.length() + 1, postfixExpression.c_str()); // Copy the string to the char array
 
-    // Step 3: Loop through each character in the expression
+    // Loop through each character in the expression
     string currentToken;  // To accumulate digits or characters for operands
 
-    //for (int i = 0; expression[i] != '\0'; ++i) {
-    for (size_t i = 0; i < postfixExpression.length(); ++i) {
+    for (int i = 0; expression[i] != '\0'; ++i) {
+    //for (size_t i = 0; i < postfixExpression.length(); ++i) {
         
-        char currentChar = postfixExpression[i];
-        //char currentChar = expression[i];
-
+        //char currentChar = postfixExpression[i];
+        char currentChar = expression[i];
         //If the character is a digit, accumulate it into currentToken
         if (isdigit(currentChar)) {
             currentToken += currentChar;
@@ -33,15 +41,15 @@ void binaryExpressionTree::buildExpressionTree(string postfixExpression) {
             nodeType<string>* newNode = new nodeType<string>;
 
             // Store the operand (number) 
-            newNode->info = currentToken; 
+            newNode->info = currentToken;
             newNode->lLink = nullptr;
             newNode->rLink = nullptr;
             treeStack.push(newNode);  // Push the node onto the stack
             currentToken.clear();     // Clear the current token for the next operand
 
         }// If the character is an operator
-        else if(currentChar == '+' || currentChar == '-' || currentChar == '*' || currentChar == '/') {
-        
+        else if (currentChar == '+' || currentChar == '-' || currentChar == '*' || currentChar == '/') {
+
             // Create a node for the number
             nodeType<string>* newNode = new nodeType<string>;
 
@@ -65,15 +73,16 @@ void binaryExpressionTree::buildExpressionTree(string postfixExpression) {
                     //missing left operand for operator
                     cerr << "Error- Stack is empty" << endl;
                 }
-            }else{
+            }
+            else {
                 //missing right operand for operator
                 cerr << "Error- Stack is empty" << endl;
             }
-        
+
         }
-        else {
+      /*  else {
             cerr << "Error- unsupported token" << endl;
-        }
+        }*/
     }
 
     // Check if the stack is still not empty after popping the root
@@ -95,24 +104,16 @@ void binaryExpressionTree::buildExpressionTree(string postfixExpression) {
     }
 
     // Clean up the allocated memory for the character array
-    //delete[] expression;
+    delete[] expression;
 }
 
 
-//double binaryExpressionTree::evaluateExpressionTree() {
-//    return evaluateExpressionTree(this->root);   //?????
-//}
+double binaryExpressionTree::evaluateExpressionTree() {
+    return evaluateExpressionTree(this->root);   
+}
 
 
 double binaryExpressionTree::evaluateExpressionTree(nodeType<string>* node) {
-
-   /* if () {
-
-        return 
-    }
-
-
-    return evaluateExpressionTree(node);*/
 
     // If the tree has only one node (leaf node)
     if (node->lLink == nullptr && node->rLink == nullptr) {
@@ -125,7 +126,7 @@ double binaryExpressionTree::evaluateExpressionTree(nodeType<string>* node) {
     double x = evaluateExpressionTree(node->lLink);  // Left operand
     double y = evaluateExpressionTree(node->rLink);  // Right operand
 
-    // Apply the operator at the current node (p)
+    // Apply the operator at the current node 
     if (node->info == "+") {
         return x + y;
     }

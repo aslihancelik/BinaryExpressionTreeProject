@@ -1,3 +1,10 @@
+// binaryExpressionTree.h
+// This header file defines the binaryExpressionTree class, which extends the binaryTreeType class to represent
+// and evaluate expression trees using postfix notation. It provides methods to build the expression tree from
+// a postfix expression, evaluate the tree, and override unused search, insert, and deleteNode functions from
+// the base binaryTreeType class.
+
+
 #pragma once
 
 #include "binaryTree.h"
@@ -28,10 +35,7 @@ public:
 
 	void buildExpressionTree(string postfixExpression);
 
-	double evaluateExpressionTree(const nodeType<string>*); //???????????????????????
-
-
-
+	double evaluateExpressionTree();
 
 private:
 
