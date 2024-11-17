@@ -115,9 +115,9 @@ void binaryExpressionTree::buildExpressionTree(string postfixExpression) {
 }
 
 
-double binaryExpressionTree::evaluateExpressionTree() {
-    return evaluateExpressionTree(this->root);   //?????
-}
+//double binaryExpressionTree::evaluateExpressionTree() {
+//    return evaluateExpressionTree(this->root);   //?????
+//}
 
 
 double binaryExpressionTree::evaluateExpressionTree(nodeType<string>* node) {
