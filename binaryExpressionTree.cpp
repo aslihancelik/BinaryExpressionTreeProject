@@ -80,7 +80,7 @@ void binaryExpressionTree::buildExpressionTree(string postfixExpression) {
             }
 
         }
-      /*  else {
+       /* else {
             cerr << "Error- unsupported token" << endl;
         }*/
     }
