@@ -33,13 +33,15 @@ public:
 	{
 	}
 
+	//builds the tree with the postfix expression
 	void buildExpressionTree(string postfixExpression);
 
+	//calls the private member function evaluateExpressionTree passing the root
 	double evaluateExpressionTree();
 
 private:
 
-
+	//this can access the root
 	double evaluateExpressionTree(nodeType<string>* );
 
 
