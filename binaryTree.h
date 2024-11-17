@@ -23,8 +23,6 @@ class binaryTreeType
 protected:
     nodeType<elemType>  *root;
 
-
-    
 public:
     const binaryTreeType<elemType>& operator=
     (const binaryTreeType<elemType>&);
@@ -100,9 +98,6 @@ public:
 
     ~binaryTreeType();
     //Destructor
-
-protected:
-    nodeType<elemType>  *root;
 
 private:
     void copyTree(nodeType<elemType>* &copiedTreeRoot,

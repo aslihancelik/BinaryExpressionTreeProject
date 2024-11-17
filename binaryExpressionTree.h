@@ -8,16 +8,27 @@ using namespace std;
 class binaryExpressionTree : public binaryTreeType<string>
 {
 public:
+	// Overriding pure virtual functions with no-op implementations
+	// 
+	//  search function
+	bool search(const string& searchItem) const
+	{
+		return false;  
+	}
 
-	bool search(const string& searchItem) const override;
+	// insert function
+	void insert(const string& insertItem)
+	{
+	}
 
-	void insert(const string& insertItem) override;
-
-	void deleteNode(const string& deleteItem) override;
+	// deleteNode function
+	void deleteNode(const string& deleteItem)
+	{
+	}
 
 	void buildExpressionTree(string postfixExpression);
 
-	double evaluateExpressionTree();
+	double evaluateExpressionTree(const nodeType<string>*); //???????????????????????
 
 
 

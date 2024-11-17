@@ -1,25 +1,7 @@
 #include "binaryExpressionTree.h"
 #include <stack>
-#include <cstring>
-
-// Implement the search function
-bool binaryExpressionTree::search(const string& searchItem) const
-{
-    // Implementation of search logic here
-    return false;  // Example placeholder
-}
-
-// Implement the insert function
-void binaryExpressionTree::insert(const string& insertItem)
-{
-    // Implementation of insert logic here
-}
-
-// Implement the deleteNode function
-void binaryExpressionTree::deleteNode(const string& deleteItem)
-{
-    // Implementation of deleteNode logic here
-}
+//#include <cstring>
+#include <cctype>
 
 
 void binaryExpressionTree::buildExpressionTree(string postfixExpression) {
@@ -28,15 +10,17 @@ void binaryExpressionTree::buildExpressionTree(string postfixExpression) {
     stack<nodeType<string>*> treeStack;
 
     // Step 2: Convert the string to a character array
-    char* expression = new char[postfixExpression.length() + 1];
-    strcpy(expression, postfixExpression.c_str());
+    //char* expression = new char[postfixExpression.length() + 1];
+    //strcpy(expression, postfixExpression.c_str());
 
     // Step 3: Loop through each character in the expression
     string currentToken;  // To accumulate digits or characters for operands
 
-    for (int i = 0; expression[i] != '\0'; ++i) {
-
-        char currentChar = expression[i];
+    //for (int i = 0; expression[i] != '\0'; ++i) {
+    for (size_t i = 0; i < postfixExpression.length(); ++i) {
+        
+        char currentChar = postfixExpression[i];
+        //char currentChar = expression[i];
 
         //If the character is a digit, accumulate it into currentToken
         if (isdigit(currentChar)) {
@@ -111,7 +95,7 @@ void binaryExpressionTree::buildExpressionTree(string postfixExpression) {
     }
 
     // Clean up the allocated memory for the character array
-    delete[] expression;
+    //delete[] expression;
 }
 
 
